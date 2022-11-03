@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       onGenerateRoute: onGenerateRoute,
       title: 'Classified App',
-      home: EditAdScreen(),
+      home: LoginScreen(),
     );
   }
 }

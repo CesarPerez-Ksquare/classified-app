@@ -1,16 +1,35 @@
 # classified_app
+Classified App (UI) - Assignement
+Classified App Design
 
-A new Flutter project.
+## Screens
 
-## Getting Started
+### Screen 1
+![Screen 1](./classified_app/screenshots/screen_1.png)
 
-This project is a starting point for a Flutter application.
+### Screen 2
+![Screen 2](./classified_app/screenshots/screen_2.png)
 
-A few resources to get you started if this is your first Flutter project:
+### Screen 3
+![Screen 3](./classified_app/screenshots/screen_3.png)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Screen 4
+![Screen 4](./classified_app/screenshots/screen_4.png)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Screen 5
+![Screen 5](./classified_app/screenshots/screen_5.png)
+
+### Screen 6
+![Screen 6](./classified_app/screenshots/screen_6.png)
+
+### Screen 7
+![Screen 7](./classified_app/screenshots/screen_7.png)
+
+### Screen 8
+![Screen 8](./classified_app/screenshots/screen_8.png)
+
+### Screen 9
+![Screen 9](./classified_app/screenshots/screen_9.png)
+
+### Screen 10
+![Screen 10](./classified_app/screenshots/screen_10.png)
