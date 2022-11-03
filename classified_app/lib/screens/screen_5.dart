@@ -3,9 +3,16 @@ import 'package:myfirstapp/screens/screen_1.dart';
 import 'package:myfirstapp/screens/screen_4.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  const EditProfileScreen({super.key});
+  EditProfileScreen({super.key});
 
   static const String routeName = 'edit profile';
+
+  TextEditingController nameController =
+      TextEditingController(text: "Sundaravel");
+  TextEditingController emailController =
+      TextEditingController(text: "sundar@appmaking.co");
+  TextEditingController mobileController =
+      TextEditingController(text: "+919876543210");
 
   @override
   Widget build(BuildContext context) {
@@ -28,39 +35,42 @@ class EditProfileScreen extends StatelessWidget {
                 backgroundImage: AssetImage("images/profile.jpg"),
                 radius: 40.0),
           ),
-          const Padding(
-            padding: EdgeInsets.only(top: 12.0, left: 24.0, right: 24.0),
+          Padding(
+            padding: const EdgeInsets.only(top: 12.0, left: 24.0, right: 24.0),
             child: TextField(
+              controller: nameController,
               keyboardType: TextInputType.name,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: "Sundaravel",
+                  labelText: "Name",
                   hintStyle: TextStyle(
                       fontSize: 20.0,
                       color: Colors.black,
                       fontWeight: FontWeight.bold)),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(top: 8.0, left: 24.0, right: 24.0),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 24.0, right: 24.0),
             child: TextField(
+              controller: emailController,
               keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: "sundar@appmaking.co",
+                  labelText: "Email Address",
                   hintStyle: TextStyle(
                       fontSize: 20.0,
                       color: Colors.black,
                       fontWeight: FontWeight.bold)),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(top: 8.0, left: 24.0, right: 24.0),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 24.0, right: 24.0),
             child: TextField(
+              controller: mobileController,
               keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: "+919876543210",
+                  labelText: "Contact Number",
                   hintStyle: TextStyle(
                       fontSize: 20.0,
                       color: Colors.black,

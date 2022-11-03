@@ -67,9 +67,9 @@ class MyAdsScreen extends StatelessWidget {
                           width: 2.0,
                           color: const Color(0xFFe0e0e0),
                         )),
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [

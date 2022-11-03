@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:myfirstapp/custom_widgets/adss.dart';
 
 import 'screen_4.dart';
+import 'screen_8.dart';
+import 'screen_9.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
@@ -103,22 +105,27 @@ class HomeScreen extends StatelessWidget {
           )
         ],
       ),
-      body: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 1.0,
-          ),
-          itemCount: ads.length,
-          itemBuilder: (context, index) {
-            return AdsScreen(
-              name: ads[index]["title"],
-              price: ads[index]["price"],
-              description: ads[index]["description"],
-              image: ads[index]["images"][0],
-            );
-          }),
+      body: InkWell(
+        onTap: () =>
+            Navigator.pushNamed(context, ProductDetailScreen.routeName),
+        child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 1.0,
+            ),
+            itemCount: ads.length,
+            itemBuilder: (context, index) {
+              return AdsScreen(
+                name: ads[index]["title"],
+                price: ads[index]["price"],
+                description: ads[index]["description"],
+                image: ads[index]["images"][0],
+              );
+            }),
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () =>
+            Navigator.pushNamed(context, CreateNewAdScreen.routeName),
         backgroundColor: const Color(0xFFf25723),
         child: const Icon(Icons.add_a_photo_outlined),
       ),
