@@ -18,9 +18,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
-    // final String url_dialpad = "tel: $args['mobile']";
-    final String url_dialpad = "tel:+919876543210";
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
