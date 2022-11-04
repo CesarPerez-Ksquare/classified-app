@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myfirstapp/screens/screen_1.dart';
 import 'package:myfirstapp/screens/screen_4.dart';
 
+// ignore: must_be_immutable
 class EditProfileScreen extends StatelessWidget {
   EditProfileScreen({super.key});
 
@@ -22,7 +23,7 @@ class EditProfileScreen extends StatelessWidget {
         automaticallyImplyLeading: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {},
         ),
         title: const Text("Edit profile"),
         centerTitle: true,

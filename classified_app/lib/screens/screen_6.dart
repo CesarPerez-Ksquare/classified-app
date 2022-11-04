@@ -1,42 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../data/data.dart';
 import 'screen_7.dart';
 
 class MyAdsScreen extends StatelessWidget {
-  MyAdsScreen({super.key});
+  const MyAdsScreen({super.key});
 
   static const String routeName = 'my ads screen';
-
-  // ignore: non_constant_identifier_names
-  final List my_ads_Abi = [
-    {
-      "id": "ad_01",
-      "title": "iPhone for Sale",
-      "price": 19999,
-      "createdBy": "Abi",
-      "createdAt": "5 days ago",
-      "mobile": "+919876543210",
-      "description": "iPhone for sale with Good Condition",
-      "images": [
-        "https://voluble-tulumba-4022f0.netlify.app/images/ad_01_01.jpeg",
-        "https://voluble-tulumba-4022f0.netlify.app/images/ad_01_02.jpeg",
-      ]
-    },
-    {
-      "id": "ad_02",
-      "title": "Audi A6 for Sale",
-      "price": 2000000,
-      "createdBy": "Abi",
-      "createdAt": "3 days ago",
-      "mobile": "+919876543211",
-      "description": "Audi A6 for Sale with Good Condition",
-      "images": [
-        "https://voluble-tulumba-4022f0.netlify.app/images/ad_02_01.jpeg",
-        "https://voluble-tulumba-4022f0.netlify.app/images/ad_02_02.jpeg",
-        "https://voluble-tulumba-4022f0.netlify.app/images/ad_02_03.jpeg",
-      ]
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -51,13 +21,22 @@ class MyAdsScreen extends StatelessWidget {
         title: const Text("My Ads"),
       ),
       body: ListView.builder(
-          itemCount: my_ads_Abi.length,
+          itemCount: ads.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: const EdgeInsets.fromLTRB(24.0, 16.0, 24.0, 0),
               child: InkWell(
-                onTap: () =>
-                    Navigator.pushNamed(context, EditAdScreen.routeName),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  EditAdScreen.routeName,
+                  arguments: {
+                    "title": ads[index]["title"],
+                    "price": ads[index]["price"],
+                    "images": ads[index]["images"],
+                    "mobile": ads[index]["mobile"],
+                    "description": ads[index]["description"],
+                  },
+                ),
                 child: Container(
                     height: 150,
                     width: 500,
@@ -78,8 +57,7 @@ class MyAdsScreen extends StatelessWidget {
                             child: SizedBox(
                               height: 100,
                               width: 100,
-                              child: Image.network(
-                                  my_ads_Abi[index]["images"][0],
+                              child: Image.network(ads[index]["images"][0],
                                   fit: BoxFit.cover),
                             ),
                           ),
@@ -90,7 +68,7 @@ class MyAdsScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  my_ads_Abi[index]["title"],
+                                  ads[index]["title"],
                                   style: const TextStyle(
                                       fontSize: 24.0,
                                       fontWeight: FontWeight.bold),
@@ -105,7 +83,7 @@ class MyAdsScreen extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.only(left: 4.0),
                                       child: Text(
-                                        my_ads_Abi[index]["createdAt"],
+                                        ads[index]["createdAt"],
                                         style: const TextStyle(
                                             fontSize: 16.0,
                                             color: Color(0xFFaaaaaa)),
@@ -114,7 +92,7 @@ class MyAdsScreen extends StatelessWidget {
                                   ],
                                 ),
                                 Text(
-                                  my_ads_Abi[index]["price"].toString(),
+                                  ads[index]["price"].toString(),
                                   style: const TextStyle(
                                       fontSize: 20.0, color: Color(0xFFf25723)),
                                 ),

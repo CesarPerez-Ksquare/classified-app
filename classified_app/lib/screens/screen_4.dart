@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:myfirstapp/screens/screen_5.dart';
 
 import 'screen_6.dart';
@@ -7,6 +8,11 @@ class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   static const String routeName = 'settings';
+
+  // ignore: non_constant_identifier_names
+  final String url_about = "https://appmaking.com/about";
+  // ignore: non_constant_identifier_names
+  final String url_contact = "https://appmaking.com/contact";
 
   @override
   Widget build(BuildContext context) {
@@ -95,48 +101,61 @@ class SettingsScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: const [
-                Icon(
-                  Icons.person_outline,
-                  color: Color(0xFF8d8d8d),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 36.0),
-                  child: Text(
-                    "About us",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w400),
+            child: InkWell(
+              onTap: () => _launchUrl(url_about),
+              child: Row(
+                children: const [
+                  Icon(
+                    Icons.person_outline,
+                    color: Color(0xFF8d8d8d),
                   ),
-                )
-              ],
+                  Padding(
+                    padding: EdgeInsets.only(left: 36.0),
+                    child: Text(
+                      "About us",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: const [
-                Icon(
-                  Icons.contacts_outlined,
-                  color: Color(0xFF8d8d8d),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 36.0),
-                  child: Text(
-                    "Contact Us",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w400),
+          InkWell(
+            onTap: () => _launchUrl(url_contact),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: const [
+                  Icon(
+                    Icons.contacts_outlined,
+                    color: Color(0xFF8d8d8d),
                   ),
-                )
-              ],
+                  Padding(
+                    padding: EdgeInsets.only(left: 36.0),
+                    child: Text(
+                      "Contact Us",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  )
+                ],
+              ),
             ),
           )
         ],
       ),
     );
+  }
+}
+
+Future<void> _launchUrl(url) async {
+  url = Uri.parse(url);
+  if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+    throw "Couldn't launch $url";
   }
 }

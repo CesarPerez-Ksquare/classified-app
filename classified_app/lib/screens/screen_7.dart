@@ -1,39 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:myfirstapp/screens/screen_6.dart';
 
-// ignore: must_be_immutable
 class EditAdScreen extends StatelessWidget {
-  EditAdScreen({super.key});
+  const EditAdScreen({super.key});
 
   static const String routeName = 'edit ad';
 
-  // ignore: non_constant_identifier_names
-  final List edit_ad_images = [
-    "https://voluble-tulumba-4022f0.netlify.app/images/ad_01_01.jpeg",
-    "https://voluble-tulumba-4022f0.netlify.app/images/ad_01_02.jpeg",
-  ];
-
-  final my_ad_data = {
-    "title": "iPhone for Sale",
-    "price": 19999,
-    "mobile": "+919876543210",
-    "description": "iPhone for sale with Good Condition",
-  };
-
-  // ignore: non_constant_identifier_names
-  TextEditingController title_form =
-      TextEditingController(text: "iPhone for Sale");
-  // ignore: non_constant_identifier_names
-  TextEditingController price_form = TextEditingController(text: "19999");
-  // ignore: non_constant_identifier_names
-  TextEditingController mobile_form =
-      TextEditingController(text: "+919876543210");
-  // ignore: non_constant_identifier_names
-  TextEditingController description_form =
-      TextEditingController(text: "iPhone for sale with Good Condition");
-
   @override
   Widget build(BuildContext context) {
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    TextEditingController titleForm =
+        TextEditingController(text: args["title"]);
+    TextEditingController priceForm =
+        TextEditingController(text: args["price"].toString());
+    TextEditingController mobileForm =
+        TextEditingController(text: args["mobile"]);
+    TextEditingController descriptionForm =
+        TextEditingController(text: args["description"]);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -79,7 +65,7 @@ class EditAdScreen extends StatelessWidget {
             child: SizedBox(
                 height: 100,
                 child: ListView.builder(
-                    itemCount: edit_ad_images.length,
+                    itemCount: args["images"].length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
@@ -93,7 +79,7 @@ class EditAdScreen extends StatelessWidget {
                                 width: 2.0,
                                 color: const Color(0xFFe0e0e0),
                               )),
-                          child: Image.network(edit_ad_images[index]),
+                          child: Image.network(args["images"][index]),
                         ),
                       );
                     })),
@@ -101,7 +87,7 @@ class EditAdScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 12.0, left: 24.0, right: 24.0),
             child: TextField(
-              controller: title_form,
+              controller: titleForm,
               keyboardType: TextInputType.name,
               decoration: const InputDecoration(
                   enabledBorder: OutlineInputBorder(
@@ -119,7 +105,7 @@ class EditAdScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 8.0, left: 24.0, right: 24.0),
             child: TextField(
-              controller: price_form,
+              controller: priceForm,
               keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
                   enabledBorder: OutlineInputBorder(
@@ -137,7 +123,7 @@ class EditAdScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 8.0, left: 24.0, right: 24.0),
             child: TextField(
-              controller: mobile_form,
+              controller: mobileForm,
               keyboardType: TextInputType.phone,
               decoration: const InputDecoration(
                   enabledBorder: OutlineInputBorder(
@@ -156,7 +142,7 @@ class EditAdScreen extends StatelessWidget {
             padding: const EdgeInsets.only(top: 8.0, left: 24.0, right: 24.0),
             child: TextField(
               maxLines: 3,
-              controller: description_form,
+              controller: descriptionForm,
               keyboardType: TextInputType.phone,
               decoration: const InputDecoration(
                   enabledBorder: OutlineInputBorder(

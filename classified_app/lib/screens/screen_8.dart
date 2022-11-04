@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:myfirstapp/screens/screen_6.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'screen_10.dart';
 
-class ProductDetailScreen extends StatelessWidget {
-  ProductDetailScreen({super.key});
+class ProductDetailScreen extends StatefulWidget {
+  const ProductDetailScreen({super.key});
 
   static const String routeName = 'Product detail';
 
-  // ignore: non_constant_identifier_names
-  final my_product_data = {
-    "title": "iPhone for Sale",
-    "price": 19999,
-    "createdBy": "Abi",
-    "createdAt": "5 days ago",
-    "description": "iPhone for sale with Good Condition",
-    "image": "https://voluble-tulumba-4022f0.netlify.app/images/ad_01_01.jpeg",
-  };
+  @override
+  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
+}
 
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    // final String url_dialpad = "tel: $args['mobile']";
+    final String url_dialpad = "tel:+919876543210";
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -32,24 +33,29 @@ class ProductDetailScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-              padding: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0),
+          Padding(
+              padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0),
               child: SizedBox(
                 width: double.infinity,
                 child: Text(
-                  "Audi A6 for Sale",
-                  style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
+                  args["title"],
+                  style: const TextStyle(
+                      fontSize: 32.0, fontWeight: FontWeight.bold),
                 ),
               )),
-          const Padding(
-              padding: EdgeInsets.fromLTRB(12.0, 4.0, 12.0, 0),
+          Padding(
+              padding: const EdgeInsets.fromLTRB(12.0, 4.0, 12.0, 0),
               child: Text(
-                "2000000",
-                style: TextStyle(fontSize: 16.0, color: Color(0xFFf25723)),
+                args["price"].toString(),
+                style:
+                    const TextStyle(fontSize: 16.0, color: Color(0xFFf25723)),
               )),
           InkWell(
-            onTap: () =>
-                Navigator.pushNamed(context, ImageViewerScreen.routeName),
+            onTap: () => Navigator.pushNamed(
+              context,
+              ImageViewerScreen.routeName,
+              arguments: {"images": args["images"]},
+            ),
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Center(
@@ -57,7 +63,7 @@ class ProductDetailScreen extends StatelessWidget {
                     height: 250,
                     width: double.infinity,
                     child: Image.network(
-                      "https://voluble-tulumba-4022f0.netlify.app/images/ad_02_01.jpeg",
+                      args["images"][0],
                       fit: BoxFit.cover,
                     )),
               ),
@@ -67,14 +73,14 @@ class ProductDetailScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(12.0, 0, 12.0, 0),
             child: Row(children: [
               Row(
-                children: const [
-                  Icon(
+                children: [
+                  const Icon(
                     Icons.person_outline,
                     size: 12.0,
                   ),
                   Text(
-                    "Abi",
-                    style: TextStyle(fontSize: 12.0),
+                    args["createdBy"],
+                    style: const TextStyle(fontSize: 12.0),
                   )
                 ],
               ),
@@ -82,14 +88,14 @@ class ProductDetailScreen extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(24.0, 0, 12.0, 0),
                 child: Row(children: [
                   Row(
-                    children: const [
-                      Icon(
+                    children: [
+                      const Icon(
                         Icons.timer_outlined,
                         size: 12.0,
                       ),
                       Text(
-                        "3 days ago",
-                        style: TextStyle(fontSize: 12.0),
+                        args["createdAt"],
+                        style: const TextStyle(fontSize: 12.0),
                       )
                     ],
                   )
@@ -97,13 +103,13 @@ class ProductDetailScreen extends StatelessWidget {
               ),
             ]),
           ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0),
             child: SizedBox(
                 width: double.infinity,
                 child: Text(
-                  "Audi A6 for Sale with Good Condition",
-                  style: TextStyle(fontSize: 16.0),
+                  args["description"],
+                  style: const TextStyle(fontSize: 16.0),
                 )),
           ),
           Padding(
@@ -116,9 +122,9 @@ class ProductDetailScreen extends StatelessWidget {
                       backgroundColor: MaterialStateProperty.all<Color>(
                           const Color(0xFFf25723)),
                       elevation: MaterialStateProperty.all(0.0)),
-                  onPressed: () {},
+                  onPressed: () => _launchUrl("tel:${args["mobile"]}"),
                   child: const Text(
-                    'Contact Seller',
+                    "Contact Seller",
                     style: TextStyle(color: Colors.white),
                   )),
             ),
@@ -126,5 +132,12 @@ class ProductDetailScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+Future<void> _launchUrl(url) async {
+  url = Uri.parse(url);
+  if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+    throw "Couldn't launch $url";
   }
 }
