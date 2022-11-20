@@ -1,40 +1,42 @@
 import 'package:flutter/material.dart';
+import '../screens/product_detail_screen.dart';
 
-import '../data/data.dart';
-import '../screens/screen_8.dart';
-
-class AdsScreen extends StatelessWidget {
-  final String name;
+class UserModelAds extends StatelessWidget {
+  final String title;
   final num price;
   final String description;
-  final String image;
+  final List<dynamic> images;
+  final String? createdBy;
+  final String? mobile;
+  final String? createdAt;
   final int index;
 
-  const AdsScreen(
-      {super.key,
-      required this.name,
-      required this.price,
-      required this.description,
-      required this.image,
-      required this.index});
+  const UserModelAds({
+    super.key,
+    required this.title,
+    required this.price,
+    required this.description,
+    required this.images,
+    this.createdBy,
+    this.mobile,
+    this.createdAt,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: InkWell(
-      onTap: () => Navigator.pushNamed(
-        context,
-        ProductDetailScreen.routeName,
-        arguments: {
-          "title": ads[index]["title"],
-          "price": ads[index]["price"],
-          "images": ads[index]["images"],
-          "createdBy": ads[index]["createdBy"],
-          "createdAt": ads[index]["createdAt"],
-          "mobile": ads[index]["mobile"],
-          "description": ads[index]["description"],
-        },
-      ),
+      onTap: () => Navigator.pushNamed(context, ProductDetailScreen.routeName,
+          arguments: {
+            "title": title,
+            "price": price,
+            "description": description,
+            "images": images,
+            "createdBy": createdBy,
+            "mobile": mobile,
+            "createdAt": createdAt,
+          }),
       child: Container(
         margin: const EdgeInsets.all(4.0),
         child: Stack(
@@ -43,8 +45,12 @@ class AdsScreen extends StatelessWidget {
               height: double.infinity,
               width: double.infinity,
               child: Image.network(
-                image,
+                images[0],
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Center(
+                      child: Text("Something went wrong with the image"));
+                },
               ),
             ),
             Align(
@@ -60,7 +66,7 @@ class AdsScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            name,
+                            title,
                             style: const TextStyle(
                                 fontSize: 20.0,
                                 fontWeight: FontWeight.bold,

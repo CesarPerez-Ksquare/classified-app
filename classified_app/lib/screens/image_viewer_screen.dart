@@ -11,8 +11,7 @@ class ImageViewerScreen extends StatelessWidget {
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
-    final List<String> imgList = args["images"];
-
+    final List<dynamic> imgList = args["images"];
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.black,
