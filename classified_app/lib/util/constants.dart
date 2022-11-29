@@ -3,6 +3,7 @@
 class Constants {
   String SERVER = "adlisting.herokuapp.com";
   String ENDPOINT_ADS = "/ads";
+  String ENDPOINT_ADS_PHOTOS = "/upload/photos";
   String ENDPOINT_ADS_USER = "/ads/user";
   String ENDPOINT_LOGIN = "/auth/login";
   String ENDPOINT_PROFILE = "/user/profile";

@@ -3,7 +3,7 @@ class AdsModel {
   String? description;
   num? price;
   String? mobile;
-  List<String>? images;
+  List<dynamic>? images;
 
   AdsModel({
     this.title,
@@ -26,8 +26,8 @@ class AdsModel {
     data['title'] = title;
     data['description'] = description;
     data['price'] = price;
-    data['mobile'] = mobile;
-    data['images'] = ["https://picsum.photos/200", "https://picsum.photos/200"];
+    data["mobile"] = mobile;
+    data["images"] = images;
     return data;
   }
 }

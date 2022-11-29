@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:myfirstapp/models/picture_model.dart';
 import 'package:myfirstapp/screens/myads_screen.dart';
 import '../util/alert_manager.dart';
 import '../util/constants.dart';
@@ -100,6 +102,29 @@ class AdsService {
       return modelObj;
     } catch (e) {
       return modelObj;
+    }
+  }
+
+  Future<dynamic> updateAdPhotos(context, List<dynamic> imageList) async {
+    List<dynamic> imagesListPath = [];
+    Uri url = Uri.https(Constants().SERVER, Constants().ENDPOINT_ADS_PHOTOS);
+    try {
+      MultipartRequest request = http.MultipartRequest("POST", url);
+      for (dynamic imagePath in imageList) {
+        MultipartFile image =
+            await http.MultipartFile.fromPath("photos", imagePath.path);
+        request.files.add(image);
+      }
+      StreamedResponse response = await request.send();
+      dynamic responseStream = await response.stream.bytesToString();
+      dynamic responseJson = jsonDecode(responseStream);
+      imagesListPath = (responseJson["data"]["path"]);
+      print(imagesListPath);
+      return imagesListPath;
+    } catch (e) {
+      print("Eerrrrrrrrrrrrrrrrrrrrrrrrorrrr: ");
+      print(e);
+      return imagesListPath;
     }
   }
 }

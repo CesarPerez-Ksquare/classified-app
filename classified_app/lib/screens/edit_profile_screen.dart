@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:myfirstapp/screens/login_screen.dart';
 import 'package:myfirstapp/services/user_service.dart';
@@ -18,7 +17,6 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   UserModel toModel = UserModel();
-  // UserModel toModelImage = UserModel();
   final bool _isLoading = false;
   final bool _isLoading2 = false;
 
@@ -109,8 +107,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         child: Visibility(
                           visible: _isLoading2,
                           replacement: CircleAvatar(
-                              // backgroundImage: NetworkImage(
-                              //     snapshot.data!["data"]["imgURL"]),
                               backgroundImage: imageSelect(_imagePath),
                               radius: 40.0),
                           child: const Center(

@@ -67,7 +67,8 @@ class MyAdsScreen extends StatelessWidget {
                                       height: 100,
                                       width: 100,
                                       child: Image.network(
-                                          myAds[index]["images"][0],
+                                          myAds[index]["images"][0] ??
+                                              "https://picsum.photos/200",
                                           fit: BoxFit.cover),
                                     ),
                                   ),

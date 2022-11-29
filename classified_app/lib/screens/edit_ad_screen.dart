@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:myfirstapp/models/ads_model.dart';
 import 'package:myfirstapp/services/ads_service.dart';
+import 'package:myfirstapp/services/user_service.dart';
 
 class EditAdScreen extends StatefulWidget {
   const EditAdScreen({super.key});
@@ -15,17 +17,34 @@ class _EditAdScreenState extends State<EditAdScreen> {
   final _formKey = GlobalKey<FormState>();
   AdsModel toModel = AdsModel();
   bool _isLoading = false;
+  bool _isLoading2 = false;
 
-  setLoadingFalse() {
+  setLoadingFalse(isLoading) {
     setState(() {
-      _isLoading = false;
+      isLoading = false;
     });
   }
 
-  setLoadingTrue() {
+  setLoadingTrue(isLoading) {
     setState(() {
-      _isLoading = true;
+      isLoading = true;
     });
+  }
+
+  List<dynamic> _imageList = [];
+  dynamic lista = [];
+
+  Future<dynamic> pickImage() async {
+    List<XFile?> imagePicked = await ImagePicker().pickMultiImage();
+    if (imagePicked.isNotEmpty) {
+      setState(() async {
+        _imageList = imagePicked;
+        lista = await AdsService()
+            .updateAdPhotos(context, _imageList)
+            .then((value) => setLoadingFalse(_isLoading2));
+        print(lista);
+      });
+    }
   }
 
   @override
@@ -60,29 +79,34 @@ class _EditAdScreenState extends State<EditAdScreen> {
         child: Column(children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Container(
-              height: 150,
-              width: 150,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(
-                    width: 2.0,
-                    color: const Color(0xFFe0e0e0),
-                  )),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(
-                      Icons.add_a_photo_outlined,
-                      color: Colors.black,
-                      size: 60.0,
-                    ),
-                    Text(
-                      "Tap to upload",
-                      style: TextStyle(fontSize: 20.0, color: Colors.black),
-                    )
-                  ]),
+            child: InkWell(
+              onTap: () async {
+                await pickImage();
+              },
+              child: Container(
+                height: 150,
+                width: 150,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(
+                      width: 2.0,
+                      color: const Color(0xFFe0e0e0),
+                    )),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.add_a_photo_outlined,
+                        color: Colors.black,
+                        size: 60.0,
+                      ),
+                      Text(
+                        "Tap to upload",
+                        style: TextStyle(fontSize: 20.0, color: Colors.black),
+                      )
+                    ]),
+              ),
             ),
           ),
           Padding(
@@ -230,11 +254,20 @@ class _EditAdScreenState extends State<EditAdScreen> {
                             const Color(0xFFf25723)),
                         elevation: MaterialStateProperty.all(0.0)),
                     onPressed: () async {
-                      setLoadingTrue();
+                      setLoadingTrue(_isLoading);
+                      setLoadingTrue(_isLoading2);
                       _formKey.currentState?.save();
+                      // toModel.images = await AdsService()
+                      //     .updateAdPhotos(context, _imageList)
+                      //     .then((value) => setLoadingFalse(_isLoading2));
+                      print(toModel.images);
+                      // ignore: use_build_context_synchronously
+                      var wait = Future.delayed(const Duration(seconds: 5), () {
+                        toModel.images = _imageList;
+                      });
                       await AdsService()
                           .updateAd(context, toModel, args["_id"])
-                          .then((value) => setLoadingFalse());
+                          .then((value) => setLoadingFalse(_isLoading));
                     },
                     child: const Text(
                       'Submit Ad',
